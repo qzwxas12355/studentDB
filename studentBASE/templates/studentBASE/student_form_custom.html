@@ -1,0 +1,12 @@
+{% extends 'studentBASE/base.html' %}
+{% block content %}
+<form method='POST' action=''>{% csrf_token %}
+   <p><label for="id_first_name">First name:</label> <input id="id_first_name" maxlength="50" name="first_name" type="text" /></p>
+	<p><label for="id_second_name">Second name:</label> <input id="id_second_name" maxlength="50" name="second_name" type="text" /></p>
+	<p><label for="id_last_name">Last name:</label> <input id="id_last_name" maxlength="50" name="last_name" type="text" /></p>
+	<p><label for="id_birth">Birth:</label> <input id="id_birth" name="birth" type="text" /></p>
+	<p><label for="id_number">Number:</label> <input id="id_number" name="number" type="text" /></p>
+	<input type="hidden" id="id_group" name="group" value="{{ group.id }}" />
+   <input type='Submit' />
+</form>
+{% endblock %}

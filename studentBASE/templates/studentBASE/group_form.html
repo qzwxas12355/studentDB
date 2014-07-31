@@ -1,0 +1,16 @@
+{% extends 'studentBASE/base.html' %}
+{% block content %}
+<form method='POST' action=''>{% csrf_token %}
+	<p><label for="id_title">Title:</label> <input id="id_title" maxlength="50" name="title" type="text" value="{{ group.title }}" /></p>
+	<p><label for="id_cheif">Cheif:</label> 
+		<select id="id_cheif" name="cheif">
+			<option value="">---------</option>
+			{% if group %}
+				{% for student in group.student_set.all %}
+					<option value="{{ student.id }}" {% if group.cheif.id == student.id %}selected="selected"{% endif %}>{{ student.first_name }} {{ student.last_name }}</option>	
+				{% endfor %}
+			{% endif %}
+		</select></p>
+   <input type='Submit' />
+</form>
+{% endblock %}
