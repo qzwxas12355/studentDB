@@ -1,8 +1,0 @@
-
-{% extends 'studentBASE/base.html' %}{% block content %}
-<h1>Student</h1>
-<p>{{ student.last_name }}  {{ student.first_name }}</p>
-<p>
-	<a href="{% url 'group_detail' student.group.id %}">{{ student.group.title }}</a>
-</p>
-{% endblock %}

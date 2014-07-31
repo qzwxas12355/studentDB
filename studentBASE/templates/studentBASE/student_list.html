@@ -1,9 +1,0 @@
-{% extends 'studentBASE/base.html' %}
-{% block content %}
-<h2>Publishers</h2>
-<ul>
-	{% for student in student_list %}
-		<li><a href="{% url 'student_detail' pk=student.id %}">{{ student.first_name }} {{ student.last_name }}</a><a href="{% url 'group_detail' student.group.id %}">   {{ student.group.title }}</a></li>
-	{% endfor %}
-</ul>
-{% endblock %}

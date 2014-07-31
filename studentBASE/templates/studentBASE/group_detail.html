@@ -1,9 +1,0 @@
-{% extends 'studentBASE/base.html' %}
-{% block content %}
-<h1>{{ group.title }}<small><a href="{% url 'group_update' pk=group.id %}">[edit]</a></small><small><a href="{% url 'group_delete' pk=group.id %}">[delete]</a></small></h1>
-{% for student in group.student_set.all %}
-	<p><a href="{% url 'student_detail' student.id %}">{{ student.first_name }} {{ student.last_name }}</a><a href="{% url 'student_update' student.id %}">[Edit]</a><a href="{% url 'student_delete' student.id %}">[Delete]</a></p>
-{% endfor %}
-<a href="{% url 'student_add' %}?group_id={{ group.id }}">Add student</a>
-<a href="{% url 'group_list' %}">All groups</a>
-{% endblock %}
