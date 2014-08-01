@@ -1,9 +1,39 @@
 {% extends 'studentBASE/base.html' %}
+{% block menu %}
+	<div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          	<li class="active"><a href="{% url 'group_list' %}">Groups</a></li>
+          	<li><a href="{% url 'student_list' %}">Students</a></li>
+          	{% if not user.is_authenticated %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+            {% else %}
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            {% endif %}
+        </ul>
+    </div>
+{% endblock %}
 {% block content %}
-<h1>{{ group.title }}<small><a href="{% url 'group_update' pk=group.id %}">[edit]</a></small><small><a href="{% url 'group_delete' pk=group.id %}">[delete]</a></small></h1>
-{% for student in group.student_set.all %}
-	<p><a href="{% url 'student_detail' student.id %}">{{ student.first_name }} {{ student.last_name }}</a><a href="{% url 'student_update' student.id %}">[Edit]</a><a href="{% url 'student_delete' student.id %}">[Delete]</a></p>
-{% endfor %}
-<a href="{% url 'student_add' %}?group_id={{ group.id }}">Add student</a>
-<a href="{% url 'group_list' %}">All groups</a>
+<div class="container">
+	<div class="row">
+		<h1>{{ group.title }}
+			<small>
+				<a href="{% url 'group_update' pk=group.id %}">
+					[edit]
+				</a>
+			</small>
+			<small>
+				<a href="{% url 'group_delete' pk=group.id %}">
+					[delete]
+				</a>
+			</small>
+		</h1>
+		<h3>Cheif</h3>
+		<a href="{% url 'student_detail' pk=group.cheif.id %}">&nbsp;&nbsp;&nbsp;&nbsp;	{{ group.cheif.last_name }} {{ group.cheif.first_name }} {{ group.cheif.second_name }}</a>
+		<h3>Students</h3>
+		{% include "studentBASE/student_list_partial.html" %}
+		<hr>
+		<a href="{% url 'student_add' %}?group_id={{ group.id }}" class="btn btn-info">Add student</a>
+		<a href="{% url 'group_list' %}" class="btn btn-info">All groups</a>
+	</div>
+</div>
 {% endblock %}

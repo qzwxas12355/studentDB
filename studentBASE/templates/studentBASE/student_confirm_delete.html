@@ -1,7 +1,25 @@
 {% extends 'studentBASE/base.html' %}
+{% block menu %}
+	<div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          	<li><a href="{% url 'group_list' %}">Groups</a></li>
+          	<li class="active"><a href="{% url 'student_list' %}">Students</a></li>
+            {% if not user.is_authenticated %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+            {% else %}
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            {% endif %}
+        </ul>
+    </div>
+{% endblock %}
 {% block content %}
-<form action="" method="post">{% csrf_token %}
-    <p>Are you sure you want to delete "{{ object }}"?</p>
-    <input type="submit" value="Confirm" />
-</form>
+<div class="container">
+	<div class="row">
+		<form action="" method="post" class="text-center">{% csrf_token %}
+    		<h4>Are you sure you want to delete "{{ object }}"?</h4>
+    		<br>
+    		<input type="submit" value="Confirm"  class="btn btn-warning" />
+		</form>
+	</div>
+</div>
 {% endblock %}

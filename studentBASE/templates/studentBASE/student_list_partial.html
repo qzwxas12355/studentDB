@@ -1,0 +1,43 @@
+{% load studentBASE_extras %}
+<table class="table table-hover">
+	<thead>
+	<tr>
+		<th>Last name</th>
+		<th>First name</th>
+		<th>Second name</th>
+		{% if show_group_name %}
+			<th>Group</th>
+		{% endif %}
+		<th>Link to Admin</th>
+	</tr>
+</thead>
+{% if student_list %}
+	{% for student in student_list %}
+		<tr>
+			<td>
+				<a href="{% url 'student_detail' pk=student.id %}">{{ student.last_name }}</a>
+			</td>
+			<td>
+				{{ student.first_name }}
+			</td>
+			<td>
+				{{ student.second_name }}
+			</td>
+			{% if show_group_name %}
+				<td>
+					<a href="{% url 'group_detail' student.group.id %}">{{ student.group.title }}</a>
+				</td>
+			{% endif %}
+			<td>
+				<a href="{% edit student %}">[To Admin]</a>
+			</td>
+		</tr>
+	{% endfor %}
+{% else %}
+	<tr>
+		<td>
+			No students
+		</td>
+	</tr>
+{% endif %}
+</table>

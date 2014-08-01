@@ -1,16 +1,53 @@
 {% extends 'studentBASE/base.html' %}
+{% block menu %}
+	<div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          	<li class="active"><a href="{% url 'group_list' %}">Groups</a></li>
+          	<li><a href="{% url 'student_list' %}">Students</a></li>
+          	{% if not user.is_authenticated %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+            {% else %}
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            {% endif %}
+        </ul>
+    </div>
+{% endblock %}
 {% block content %}
-<form method='POST' action=''>{% csrf_token %}
-	<p><label for="id_title">Title:</label> <input id="id_title" maxlength="50" name="title" type="text" value="{{ group.title }}" /></p>
-	<p><label for="id_cheif">Cheif:</label> 
-		<select id="id_cheif" name="cheif">
-			<option value="">---------</option>
-			{% if group %}
-				{% for student in group.student_set.all %}
-					<option value="{{ student.id }}" {% if group.cheif.id == student.id %}selected="selected"{% endif %}>{{ student.first_name }} {{ student.last_name }}</option>	
-				{% endfor %}
-			{% endif %}
-		</select></p>
-   <input type='Submit' />
-</form>
+<div class="container">
+	<div class="row">
+		{% if not group %}
+			<h1>New group</h1>
+		{% else %}
+			<h1>Edit group</h1>
+		{% endif %}
+		<form method='POST' action='' class="form-horizontal">{% csrf_token %}
+			<div class="form-group">
+					<label for="id_title" class="col-sm-2 control-label">
+						Title:
+					</label> 
+					<div class="col-sm-3">
+						<input id="id_title" class="form-control" maxlength="50" name="title" type="text" value="{{ group.title }}" />
+					</div>
+			</div>
+			<div class="form-group">
+				<label for="id_cheif" class="col-sm-2 control-label">Cheif:</label> 
+				<div class="col-sm-3">
+					<select id="id_cheif" name="cheif" class="form-control"  class="col-sm-2 control-label">
+						<option value="">---------</option>
+						{% if group %}
+							{% for student in group.student_set.all %}
+								<option  value="{{ student.id }}" {% if group.cheif.id == student.id %}selected="selected"{% endif %} >{{ student.first_name }} {{ student.last_name }}</option>	
+							{% endfor %}
+						{% endif %}
+					</select></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+   					<input type='Submit'  class="btn btn-info" value="Save" />
+   				</div>
+   			</div>
+		</form>
+	</div>
+</div>
 {% endblock %}

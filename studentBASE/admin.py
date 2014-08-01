@@ -21,5 +21,9 @@ class GroupAdmin(admin.ModelAdmin):
 class SignalAdmin(admin.ModelAdmin):
 	list_display  = ('sender', 'type_signal', 'date')
 
+class StudentAdmin(admin.ModelAdmin):
+	list_display  = ('last_name', 'first_name', 'second_name', 'birth')
+
 admin.site.register(Group, GroupAdmin)
 admin.site.register(Signal, SignalAdmin)
+admin.site.register(Student, StudentAdmin)

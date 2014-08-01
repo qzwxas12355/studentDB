@@ -1,13 +1,49 @@
 {% extends 'studentBASE/base.html' %}
+{% block menu %}
+	<div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          	<li class="active"><a href="{% url 'group_list' %}">Groups</a></li>
+          	<li><a href="{% url 'student_list' %}">Students</a></li>
+          	{% if not user.is_authenticated %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+            {% else %}
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            {% endif %}
+        </ul>
+    </div>
+{% endblock %}
 {% block content %}
 {% load studentBASE_extras %}
-
-<h2>Groups</h2>
-<ul>
-	{% for group in group_list %}
-		<li><a href="{% url 'group_detail' pk=group.id %}">{{ group.title }}</a> - {{ group.student_set.count }} - {{ group.cheif }}</li>
-		<a href="{% edit group %}">[To Admin]</a>
-	{% endfor %}
-</ul>
-<a href="{% url 'group_add' %}">New</a>
+<div class="container">
+	<div class="row">
+		<h2>Groups</h2>
+		<table class="table table-hover">
+			<thead>
+			<tr>
+				<th>Group</th>
+				<th>Students count</th>
+				<th>Cheif</th>
+				<th>Link to Admin</th>
+			</tr>
+		</thead>
+			{% for group in group_list %}
+				<tr>
+					<td>
+						<a href="{% url 'group_detail' pk=group.id %}">{{ group.title }}</a>
+					</td>
+					<td>
+						{{ group.student_set.count }}
+					</td>
+					<td>
+						{{group.cheif }}
+					</td>
+					<td>
+						<a href="{% edit group %}">[To Admin]</a>
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
+		<a href="{% url 'group_add' %}" class="btn btn-info">New</a>
+	</div>
+</div>
 {% endblock %}

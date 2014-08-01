@@ -1,9 +1,24 @@
 {% extends 'studentBASE/base.html' %}
+{% block menu %}
+	<div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          	<li><a href="{% url 'group_list' %}">Groups</a></li>
+          	<li class="active"><a href="{% url 'student_list' %}">Students</a></li>
+          	{% if not user.is_authenticated %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+            {% else %}
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            {% endif %}
+        </ul>
+    </div>
+{% endblock %}
 {% block content %}
-<h2>Publishers</h2>
-<ul>
-	{% for student in student_list %}
-		<li><a href="{% url 'student_detail' pk=student.id %}">{{ student.first_name }} {{ student.last_name }}</a><a href="{% url 'group_detail' student.group.id %}">   {{ student.group.title }}</a></li>
-	{% endfor %}
-</ul>
+{% load studentBASE_extras %}
+<div class="container">
+	<div class="row">
+		<h2>Students</h2>
+		{% include "studentBASE/student_list_partial.html" %}
+		<a href="{% url 'student_add' %}" class="btn btn-info">New</a>
+	</div>
+</div>
 {% endblock %}

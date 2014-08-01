@@ -13,7 +13,7 @@ class Student(models.Model):
 	last_name = models.CharField(max_length=50)
 
 	birth = models.DateField()
-	number = models.IntegerField()
+	number = models.IntegerField(unique=True)
 	group = models.ForeignKey('Group')
 
 	def __str__(self):

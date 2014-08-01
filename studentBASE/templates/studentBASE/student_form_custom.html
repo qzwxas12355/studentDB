@@ -1,12 +1,54 @@
 {% extends 'studentBASE/base.html' %}
+{% block menu %}
+	<div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          	<li><a href="{% url 'group_list' %}">Groups</a></li>
+          	<li  class="active"><a href="{% url 'student_list' %}">Students</a></li>
+          	{% if not user.is_authenticated %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+            {% else %}
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            {% endif %}
+        </ul>
+    </div>
+{% endblock %}
 {% block content %}
-<form method='POST' action=''>{% csrf_token %}
-   <p><label for="id_first_name">First name:</label> <input id="id_first_name" maxlength="50" name="first_name" type="text" /></p>
-	<p><label for="id_second_name">Second name:</label> <input id="id_second_name" maxlength="50" name="second_name" type="text" /></p>
-	<p><label for="id_last_name">Last name:</label> <input id="id_last_name" maxlength="50" name="last_name" type="text" /></p>
-	<p><label for="id_birth">Birth:</label> <input id="id_birth" name="birth" type="text" /></p>
-	<p><label for="id_number">Number:</label> <input id="id_number" name="number" type="text" /></p>
+<form method='POST' action=''  class="form-horizontal">{% csrf_token %}
+	<div class="form-group">
+   		<label class="col-sm-2 control-label" for="id_first_name">First name:</label> 
+   		<div class="col-sm-3">
+   			<input  class="form-control" id="id_first_name" maxlength="50" name="first_name" type="text" />
+   		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label"  for="id_second_name">Second name:</label> 
+		<div class="col-sm-3">
+			<input id="id_second_name" class="form-control" maxlength="50" name="second_name" type="text" />
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="id_last_name">Last name:</label> 
+		<div class="col-sm-3">
+			<input id="id_last_name" class="form-control" maxlength="50" name="last_name" type="text" />
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="id_birth">Birth (YYYY-MM-DD):</label> 
+		<div class="col-sm-3">
+			<input class="form-control" id="id_birth" name="birth" type="text" />
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="id_number">Number:</label> 
+		<div class="col-sm-3">
+			<input class="form-control" id="id_number" name="number" type="text" />
+		</div>
+	</div>
 	<input type="hidden" id="id_group" name="group" value="{{ group.id }}" />
-   <input type='Submit' />
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+   			<input type='Submit'  class="btn btn-info" value="Save"/>
+   		</div>
+	</div>
 </form>
 {% endblock %}

@@ -1,8 +1,69 @@
-
-{% extends 'studentBASE/base.html' %}{% block content %}
-<h1>Student</h1>
-<p>{{ student.last_name }}  {{ student.first_name }}</p>
-<p>
-	<a href="{% url 'group_detail' student.group.id %}">{{ student.group.title }}</a>
-</p>
+{% extends 'studentBASE/base.html' %}
+{% block menu %}
+	<div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          	<li><a href="{% url 'group_list' %}">Groups</a></li>
+          	<li class="active"><a href="{% url 'student_list' %}">Students</a></li>
+            {% if not user.is_authenticated %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+            {% else %}
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            {% endif %}
+        </ul>
+    </div>
+{% endblock %}
+{% block content %}
+<div class="container">
+	<div class="row">
+		<h3>Student<small>
+				<a href="{% url 'student_update' pk=student.id %}">
+					[edit]
+				</a>
+			</small>
+			<small>
+				<a href="{% url 'student_delete' pk=student.id %}">
+					[delete]
+				</a>
+			</small>
+		</h3>
+		<form class="form-horizontal" role="form">
+  			<div class="form-group">
+    			<label class="col-sm-2 control-label">First name</label>
+    			<div class="col-sm-10">
+      				<p class="form-control-static">{{ student.first_name }}</p>
+    			</div>
+  			</div>
+  			<div class="form-group">
+    			<label class="col-sm-2 control-label">Second name</label>
+    			<div class="col-sm-10">
+      				<p class="form-control-static">{{ student.second_name }}</p>
+    			</div>
+  			</div>
+  			<div class="form-group">
+    			<label class="col-sm-2 control-label">Last name</label>
+    			<div class="col-sm-10">
+      				<p class="form-control-static">{{ student.last_name }}</p>
+    			</div>
+  			</div>
+  			<div class="form-group">
+    			<label class="col-sm-2 control-label">Date birth</label>
+    			<div class="col-sm-10">
+      				<p class="form-control-static">{{ student.birth }}</p>
+    			</div>
+  			</div>
+  			<div class="form-group">
+    			<label class="col-sm-2 control-label">Number</label>
+    			<div class="col-sm-10">
+      				<p class="form-control-static">{{ student.number }}</p>
+    			</div>
+  			</div>
+  			<div class="form-group">
+    			<label class="col-sm-2 control-label">First name</label>
+    			<div class="col-sm-10">
+      				<p class="form-control-static"><a href="{% url 'group_detail' pk=student.group.id %}">{{ student.group.title }}</a></p>
+    			</div>
+  			</div>
+		</form>
+	</div>
+</div>
 {% endblock %}
